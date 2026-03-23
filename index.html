@@ -9,30 +9,33 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f8f9fb;
-    color: #333;
+    background: #faf7f9;
+    color: #2f2f2f;
 }
 
+/* NAVBAR */
 nav {
-    background: white;
+    background: #ffffff;
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 nav a {
     text-decoration: none;
     margin-left: 20px;
-    color: #555;
+    color: #6b6b6b;
     font-weight: 500;
+    transition: 0.2s;
 }
 
 nav a:hover {
-    color: black;
+    color: #d6aeb6;
 }
 
+/* HERO */
 .hero {
     max-width: 900px;
     margin: auto;
@@ -41,46 +44,62 @@ nav a:hover {
 
 .hero h1 {
     font-size: 42px;
+    margin-bottom: 10px;
 }
 
+.hero p {
+    color: #5f5f5f;
+}
+
+/* SECTIONS */
 .section {
     max-width: 900px;
     margin: 60px auto;
     padding: 0 40px;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+.section h2 {
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
+/* CARDS */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    border: 1px solid #f0e4e7;
+}
+
+/* BUTTONS */
+.button, .cv-button {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 10px 5px 0 0;
+    background: #e8cfd4;
+    color: #2f2f2f;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.button:hover, .cv-button:hover {
+    background: #d6aeb6;
+}
+
+/* CONTACT */
 .contact {
     text-align: center;
     margin-top: 40px;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 16px;
-    margin: 10px;
-    background: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-}
-
-.button.secondary {
-    background: #e9ecef;
-    color: #333;
-}
-
+/* FOOTER */
 footer {
     text-align: center;
     padding: 40px;
-    color: #777;
+    color: #888;
 }
 </style>
 </head>
