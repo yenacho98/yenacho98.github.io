@@ -1,9 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>My GitHub Pages Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yena Cho | PhD Student</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fb;
+    }
+
+    /* Navigation */
+    nav {
+        background-color: #ffffff;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+    }
+
+    nav h1 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    nav a {
+        margin-left: 20px;
+        text-decoration: none;
+        color: #555;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        color: #000;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 80px 40px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .hero h2 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        color: #555;
+    }
+
+    /* Section */
+    .section {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 40px;
+    }
+
+    .section h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* Research cards */
+    .research {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .card h4 {
+        margin-top: 0;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 40px;
+        color: #777;
+        font-size: 14px;
+    }
+
+    @media (min-width: 768px) {
+        .research {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+</style>
 </head>
+
 <body>
-  <h1>Hello world</h1>
-  <p>My site is live on GitHub Pages.</p>
+
+<!-- Navigation -->
+<nav>
+    <h1>Yena Cho</h1>
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Projects</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h2>Yena Cho</h2>
+    <p>PhD Student in Industrial-Organizational Psychology at Virginia Tech</p>
+    <p>I study how people recover from stress and maintain focus in the modern, technology-driven workplace.</p>
+</section>
+
+<!-- About -->
+<section class="section">
+    <h3>About</h3>
+    <p>
+        I am a PhD student in the Work Stress and Recovery Lab at Virginia Tech. My research focuses on understanding how modern work environments—especially those shaped by digital technology—affect employee well-being, attention, and recovery.
+    </p>
+</section>
+
+<!-- Research -->
+<section class="section">
+    <h3>Research Interests</h3>
+    <div class="research">
+        
+        <div class="card">
+            <h4>Workplace Breaks & Recovery</h4>
+            <p>
+                Exploring how microbreaks and recovery experiences during the workday influence stress, well-being, and performance.
+            </p>
+        </div>
+
+        <div class="card">
+            <h4>Social Media & Work</h4>
+            <p>
+                Examining how digital platforms blur work-life boundaries and how feedback, visibility, and online pressure affect well-being.
+            </p>
+        </div>
+
+        <div class="card">
+            <h4>Self-Regulation & Focus</h4>
+            <p>
+                Investigating how executive function and attention control shape recovery, distraction, and performance in digital work environments.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Projects -->
+<section class="section">
+    <h3>Projects</h3>
+    <p>
+        Current work includes research on social media breaks during the workday, daily stress and recovery processes, and multilevel analyses of work-life balance and burnout.
+    </p>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 Yena Cho | Virginia Tech</p>
+</footer>
+
 </body>
 </html>
