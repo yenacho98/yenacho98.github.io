@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vegan Product Analysis Demo</title>
-
+    
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    
 <style>
 :root {
     --bg: #faf7f9;
@@ -111,30 +113,69 @@ button:hover {
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
 <script>
-// Animal-derived ingredients list
 const nonVeganIngredients = [
-    "milk", "butter", "cheese", "egg", "honey", "gelatin", "whey", "casein", "cream"
+    "milk", "butter", "cheese", "egg", "honey", "gelatin", "whey", "casein", "cream", "lactose"
 ];
 
-// Sample dataset
-const products = [
-    { name: "Almond Milk", vegan: true },
-    { name: "Granola Bar (Honey)", vegan: false },
-    { name: "Vegetable Soup", vegan: true },
-    { name: "Cheese Crackers", vegan: false },
-    { name: "Oat Milk", vegan: true }
-];
+let products = [];
 
-// Ingredient checker
+async function loadExcel() {
+    const response = await fetch("Food_vegan_analysis (2).xlsx");
+    const data = await response.arrayBuffer();
+
+    const workbook = XLSX.read(data);
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(sheet);
+
+    products = json.map(row => {
+
+        // Handle your column names safely
+        const name = row["ProductName"] || "Unknown Product";
+        const category = row["Category"] || "";
+        const ingredientsRaw = row["INGREDIENTS"] || row["ingredients"] || "";
+        const ingredients = ingredientsRaw.toLowerCase();
+
+        // Use your existing vegan column if available
+        let isVegan;
+
+        if (row["vegan"]) {
+            const val = row["vegan"].toString().toLowerCase();
+            isVegan = val.includes("yes");
+        } else {
+            // fallback classifier
+            isVegan = true;
+            for (let ing of nonVeganIngredients) {
+                if (ingredients.includes(ing)) {
+                    isVegan = false;
+                    break;
+                }
+            }
+        }
+
+        return {
+            name,
+            category,
+            ingredients,
+            vegan: isVegan
+        };
+    });
+
+    loadDashboard();
+    searchProducts();
+}
+
+/* Ingredient Checker */
 function checkVegan() {
     const input = document.getElementById("ingredientInput").value.toLowerCase();
     const resultDiv = document.getElementById("result");
 
     let isVegan = true;
 
-    for (let ingredient of nonVeganIngredients) {
-        if (input.includes(ingredient)) {
+    for (let ing of nonVeganIngredients) {
+        if (input.includes(ing)) {
             isVegan = false;
             break;
         }
@@ -149,7 +190,7 @@ function checkVegan() {
     }
 }
 
-// Dashboard counts
+/* Dashboard */
 function loadDashboard() {
     const total = products.length;
     const veganCount = products.filter(p => p.vegan).length;
@@ -160,7 +201,7 @@ function loadDashboard() {
     document.getElementById("nonVeganCount").innerText = nonVeganCount;
 }
 
-// Product search
+/* Search */
 function searchProducts() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const list = document.getElementById("productList");
@@ -169,18 +210,23 @@ function searchProducts() {
 
     products
         .filter(p => p.name.toLowerCase().includes(query))
+        .slice(0, 50)
         .forEach(p => {
             const div = document.createElement("div");
             div.className = "product";
-            div.innerHTML = `${p.name} — ${p.vegan ? "✅ Vegan" : "❌ Not Vegan"}`;
+
+            div.innerHTML = `
+                <strong>${p.name}</strong><br>
+                ${p.category}<br>
+                ${p.vegan ? "✅ Vegan" : "❌ Not Vegan"}
+            `;
+
             list.appendChild(div);
         });
 }
 
 // Initialize
-loadDashboard();
-searchProducts();
-
+loadExcel();
 </script>
 
 </body>
