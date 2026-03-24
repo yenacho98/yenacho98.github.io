@@ -58,16 +58,16 @@ nav a:hover {
     align-items: center;
 }
 
-/* --- UPDATED PROFILE CSS --- */
+/* PROFILE CIRCLE - UPDATED */
 .profile {
     width: 140px;
     height: 140px;
-    background: var(--accent); /* Fallback color */
     border-radius: 50%;
     flex-shrink: 0;
-    object-fit: cover;         /* Crops the image to fill the circle */
-    object-position: center;    /* Centers the crop on your face */
-    border: 2px solid var(--accent); /* Optional: adds a nice thin border */
+    object-fit: cover; /* Keeps image from stretching */
+    object-position: center; /* Centers your face */
+    border: 2px solid var(--accent);
+    background: var(--accent); /* Only shows if image fails to load */
 }
 
 /* HERO TEXT */
@@ -137,11 +137,6 @@ nav a:hover {
 
 .card:hover {
     transform: translateY(-3px);
-}
-
-/* CONTACT */
-.contact {
-    text-align: center;
 }
 
 /* FOOTER */
@@ -221,14 +216,14 @@ footer {
             <p>How digital platforms blur boundaries between work and nonwork.</p>
         </div>
 
-        <div class="card">
+        <div class="card :last-child">
             <strong>Self-Regulation & Attention</strong>
             <p>How executive function shapes focus and recovery in digital environments.</p>
         </div>
     </div>
 </section>
 
-<section class="section contact">
+<section class="section contact" style="text-align: center;">
     <h2>Contact</h2>
     <p>Feel free to reach out for collaborations or questions.</p>
 
