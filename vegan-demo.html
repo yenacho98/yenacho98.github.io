@@ -130,39 +130,39 @@ async function loadExcel() {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const json = XLSX.utils.sheet_to_json(sheet);
 
-    products = json.map(row => {
+    prproducts = json.map(row => {
 
-        // Handle your column names safely
-        const name = row["ProductName"] || "Unknown Product";
-        const category = row["Category"] || "";
-        const ingredientsRaw = row["INGREDIENTS"] || row["ingredients"] || "";
-        const ingredients = ingredientsRaw.toLowerCase();
+    // Updated column mapping
+    const name = row["usa-grid"] || "Unknown Product";
+    const category = row["food-field-details"] || row["Category"] || "";
+    const ingredientsRaw = row["INGREDIENTS"] || row["ingredients"] || "";
+    const ingredients = ingredientsRaw.toLowerCase();
 
-        // Use your existing vegan column if available
-        let isVegan;
+    // Use your vegan column if available
+    let isVegan;
 
-        if (row["vegan"]) {
-            const val = row["vegan"].toString().toLowerCase();
-            isVegan = val.includes("yes");
-        } else {
-            // fallback classifier
-            isVegan = true;
-            for (let ing of nonVeganIngredients) {
-                if (ingredients.includes(ing)) {
-                    isVegan = false;
-                    break;
-                }
+    if (row["vegan"]) {
+        const val = row["vegan"].toString().toLowerCase();
+        isVegan = val.includes("yes");
+    } else {
+        // fallback classifier
+        isVegan = true;
+        for (let ing of nonVeganIngredients) {
+            if (ingredients.includes(ing)) {
+                isVegan = false;
+                break;
             }
         }
+    }
 
-        return {
-            name,
-            category,
-            ingredients,
-            vegan: isVegan
-        };
+    return {
+        name,
+        category,
+        ingredients,
+        vegan: isVegan
+    };
     });
-
+        
     loadDashboard();
     searchProducts();
 }
