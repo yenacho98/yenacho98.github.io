@@ -130,7 +130,7 @@ async function loadExcel() {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const json = XLSX.utils.sheet_to_json(sheet);
 
-    prproducts = json.map(row => {
+    products = json.map(row => {
 
     // Updated column mapping
     const name = row["usa-grid"] || "Unknown Product";
