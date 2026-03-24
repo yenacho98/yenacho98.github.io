@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vegan Product Analysis Demo</title>
+
+<style>
+:root {
+    --bg: #faf7f9;
+    --accent: #e8cfd4;
+    --hover: #d6aeb6;
+    --text: #2f2f2f;
+    --card: #ffffff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 40px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--hover);
+}
+
+.result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.vegan { background: #d4edda; }
+.nonvegan { background: #f8d7da; }
+
+.product {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Vegan Product Analysis Demo</h1>
+<p>This interactive demo showcases ingredient classification and product filtering.</p>
+
+<!-- INGREDIENT CHECKER -->
+<div class="card">
+    <h2>Ingredient Checker</h2>
+    <p>Enter an ingredient list to check if it's likely vegan:</p>
+
+    <input id="ingredientInput" placeholder="e.g., water, sugar, milk powder">
+    <button onclick="checkVegan()">Check</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="card">
+    <h2>Mini Dashboard</h2>
+    <p>Sample dataset summary:</p>
+
+    <p>Total Products: <strong id="total"></strong></p>
+    <p>Likely Vegan: <strong id="veganCount"></strong></p>
+    <p>Non-Vegan: <strong id="nonVeganCount"></strong></p>
+</div>
+
+<!-- SEARCH TOOL -->
+<div class="card">
+    <h2>Product Search</h2>
+    <input id="searchInput" placeholder="Search product name..." onkeyup="searchProducts()">
+
+    <div id="productList"></div>
+</div>
+
+</div>
+
+<script>
+// Animal-derived ingredients list
+const nonVeganIngredients = [
+    "milk", "butter", "cheese", "egg", "honey", "gelatin", "whey", "casein", "cream"
+];
+
+// Sample dataset
+const products = [
+    { name: "Almond Milk", vegan: true },
+    { name: "Granola Bar (Honey)", vegan: false },
+    { name: "Vegetable Soup", vegan: true },
+    { name: "Cheese Crackers", vegan: false },
+    { name: "Oat Milk", vegan: true }
+];
+
+// Ingredient checker
+function checkVegan() {
+    const input = document.getElementById("ingredientInput").value.toLowerCase();
+    const resultDiv = document.getElementById("result");
+
+    let isVegan = true;
+
+    for (let ingredient of nonVeganIngredients) {
+        if (input.includes(ingredient)) {
+            isVegan = false;
+            break;
+        }
+    }
+
+    if (isVegan) {
+        resultDiv.innerHTML = "✅ Likely Vegan";
+        resultDiv.className = "result tag vegan";
+    } else {
+        resultDiv.innerHTML = "❌ Contains Animal-Derived Ingredients";
+        resultDiv.className = "result tag nonvegan";
+    }
+}
+
+// Dashboard counts
+function loadDashboard() {
+    const total = products.length;
+    const veganCount = products.filter(p => p.vegan).length;
+    const nonVeganCount = total - veganCount;
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("veganCount").innerText = veganCount;
+    document.getElementById("nonVeganCount").innerText = nonVeganCount;
+}
+
+// Product search
+function searchProducts() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const list = document.getElementById("productList");
+
+    list.innerHTML = "";
+
+    products
+        .filter(p => p.name.toLowerCase().includes(query))
+        .forEach(p => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `${p.name} — ${p.vegan ? "✅ Vegan" : "❌ Not Vegan"}`;
+            list.appendChild(div);
+        });
+}
+
+// Initialize
+loadDashboard();
+searchProducts();
+
+</script>
+
+</body>
+</html>
